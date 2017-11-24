@@ -8,6 +8,6 @@ const mongoose = require('mongoose');
 
 
 mongoose.Promise=global.Promise;
-mongoose.connect(db.localhost||process.env.MONGODB_URI,{ useMongoClient: true })
+mongoose.connect(db.localhost||db.mlab,{ useMongoClient: true })
 
 module.export={mongoose}
