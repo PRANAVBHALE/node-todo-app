@@ -23,14 +23,14 @@ beforeEach((done)=>{
 
 describe('POST /todos',()=>{
   it('should create a new todo',(done)=>{
-  //  var text = 'Test todo text'
+    var text = 'Test todo text'
 
     request(app)
     .post('/todos')
-    .send({})
-    .expect(400)
+    .send({text})
+    .expect(200)
     .expect((res)=>{
-      expect(res.body.text).toBe();
+      expect(res.body.text).toBe(text);
       done()
 
     })
@@ -41,7 +41,7 @@ describe('POST /todos',()=>{
 
       Todo.find(text).then((todos)=>{
         expect(todos.length).toBe(4)
-        expect(todos[0].text).toBe()
+        expect(todos[0].text).toBe(text)
       }).catch((e)=>done(e))
     })
   })
