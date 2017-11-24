@@ -11,7 +11,7 @@ var {User}=require('./models/user.js')
 
 var app = express()
 
-
+const port = process.env.PORT || 3000
 
 app.use(bodyParser.json())
 
@@ -59,8 +59,8 @@ Todo.findById(id).then((todo)=>{
 })
 });
 
-app.listen(3000,()=>{
-  console.log('Server availavble on port 3000');
+app.listen(port,()=>{
+  console.log(`Server availavble on port ${port}`);
 })
 
 
