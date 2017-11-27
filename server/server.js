@@ -59,6 +59,30 @@ Todo.findById(id).then((todo)=>{
 })
 });
 
+app.delete('/todos/:id',(req,res)=>{
+  var id = req.params.id
+
+
+  //validate the id->not vlaid?return 404 -
+  if(!ObjectID.isValid(id)){
+    // console.log('Id not valid');
+    return res.status(404).send()
+  }
+
+  //remove by id
+    //if (fail) ->send 404
+    //else success
+    // catch error ->send 400
+  Todo.findByIdAndRemove(id).then((todo)=>{
+    if(!todo){
+      return res.status(404).send()
+    }
+    res.send({todo})
+  }).catch((e)=>{
+    res.status(400).send()
+  })
+})
+
 app.listen(port,()=>{
   console.log(`Server availavble on port ${port}`);
 })
