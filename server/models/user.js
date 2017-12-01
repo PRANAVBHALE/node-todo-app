@@ -56,7 +56,6 @@ UserSchema.methods.generateAuthToken = function(){
   })
 }
 
-var User=mongoose.model('User',UserSchema);
 //
 //
 // var user=new User({
@@ -70,5 +69,28 @@ var User=mongoose.model('User',UserSchema);
 // },(e)=>{
 //   console.log('enabble to save');
 // })
+
+  UserSchema.statics.findByToken = function(token){
+    var User = this;
+    var decoded;
+
+    try {
+      decoded = jwt.verify(token,'555')
+    } catch (e) {
+      // return new Promise((resolve,reject)=>{
+      //   reject()
+      // })
+      return Promise.reject('test')
+    }
+
+    return User.findOne({
+      '_id' : decoded._id,
+      'tokens.token':token,
+      'tokens.access':'auth'
+    });
+  };
+
+  var User=mongoose.model('User',UserSchema);
+
 
 module.exports={User}
