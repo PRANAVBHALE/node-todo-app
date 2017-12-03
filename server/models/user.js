@@ -10,18 +10,18 @@ var UserSchema = new mongoose.Schema({
     type:String,
       required:true,
       trime:true,
-      minLength:1,
+      minLength:5,
       unique:true,
       validate:{
         validator: validator.isEmail,
         message:'{VALUE} is not email',
-        isAsync:false
+      //  isAsync:false
       }
   },
 
   password:{
     type:String,
-    minLength:1,
+    minLength:5,
     require:true
   },
 
