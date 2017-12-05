@@ -133,17 +133,31 @@ app.post('/users',(req,res)=>{
     return user.generateAuthToken()
   }).then((token)=>{
     res.header('x-auth',token).send(user)
-  }),(e)=>{
+  }).catch((e)=>{
   //  console.log('Enable to save data');
   res.status(400).send(e)
 //  console.log(req.body);
-  }
+})
 });
 
 
 
 app.get('/users/me',authenticate,(req,res)=>{
   res.send(req.user)
+})
+
+app.post('/users/login',(req,res)=>{
+  var body = _.pick(req.body,['email','password'])
+  debugger
+  User.findByCredentials(body.email,body.password).then((user)=>{
+    return user.generateAuthToken().then((token)=>{
+      res.header('x-auth',token).send(user)
+    //  res.send(user)
+    })
+  }).catch((e)=>{
+    res.status(400).send()
+  })
+//  res.send(body)
 })
 
 
