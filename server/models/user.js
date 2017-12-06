@@ -57,6 +57,16 @@ UserSchema.methods.generateAuthToken = function(){
   })
 }
 
+UserSchema.methods.removeToken = function(token){
+  var user = this
+
+  return user.update({
+    $pull:{                         //$pull mongodb property to remove object ith 'token'
+      tokens:{token}
+    }
+  })
+}
+
 //
 //
 // var user=new User({
